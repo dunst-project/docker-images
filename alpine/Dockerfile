@@ -32,10 +32,11 @@ RUN true \
         make \
         musl-dev \
         pango-dev \
+        valgrind \
  && git clone "${REPO_URL}" /tmp/dunst \
  && sed -i 's/-g//g' /tmp/dunst/config.mk \
  && git -C /tmp/dunst checkout "${REPO_BRANCH}" \
- && make -C /tmp/dunst -j $(nproc) all install \
+ && make -C /tmp/dunst -j $(nproc) all install test-valgrind \
  && rm -rf /tmp/dunst \
  && apk del --purge dunstbuild
 
