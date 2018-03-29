@@ -1,7 +1,27 @@
 XSOCK?=/tmp/.X11-unix
 DUNSTRC=${HOME}/.config/dunst/dunstrc
+REPO=./dunst
 
 all: $(shell find * -name Dockerfile -printf 'img-%h\n')
+
+devimg-%:
+	docker build \
+		-t dunst:${@:devimg-%=%-dev} \
+		-f ${@:devimg-%=%}/Dockerfile.dev \
+		.
+
+test-%: devimg-%
+	$(eval RAND := $(shell date +%s))
+
+	[ -e "${REPO}" ]
+
+	docker run \
+		--rm \
+		-v "${REPO}:/dunstrepo" \
+		dunst:${@:test-%=%-dev} \
+		"/dunstrepo" \
+		"/srv/dunstrepo-${RAND}" \
+		"/srv/${RAND}-install"
 
 img-%:
 	docker build \

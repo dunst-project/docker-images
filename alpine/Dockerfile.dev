@@ -1,0 +1,35 @@
+FROM alpine
+
+RUN apk add --no-cache \
+        cairo \
+        cairo-dev \
+        dbus \
+        dbus-dev \
+        gcc \
+        git \
+        glib \
+        glib-dev \
+        gtk+3.0 \
+        gtk+3.0-dev \
+        libnotify \
+        libnotify-dev \
+        libxdg-basedir \
+        libxdg-basedir-dev \
+        libxft \
+        libxft-dev \
+        libxinerama \
+        libxinerama-dev \
+        libxrandr \
+        libxrandr-dev \
+        libxscrnsaver \
+        libxscrnsaver-dev \
+        make \
+        musl-dev \
+        pango \
+        pango-dev \
+        valgrind \
+ && true
+
+ADD entrypoint-dev.sh /srv/entrypoint
+
+ENTRYPOINT ["/srv/entrypoint"]
