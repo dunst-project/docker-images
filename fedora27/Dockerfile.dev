@@ -1,0 +1,20 @@
+FROM fedora:27
+
+RUN true \
+ && dnf install -y \
+        dbus-devel \
+        @development-tools \
+        glib2-devel \
+        gtk3-devel \
+        libnotify-devel \
+        libX11-devel \
+        libxdg-basedir-devel \
+        libXrandr-devel \
+        libXScrnSaver-devel \
+        pango-devel \
+        valgrind \
+ && true
+
+ADD entrypoint-dev.sh /srv/entrypoint
+
+ENTRYPOINT ["/srv/entrypoint"]
