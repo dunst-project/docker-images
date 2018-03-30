@@ -2,7 +2,7 @@ XSOCK?=/tmp/.X11-unix
 DUNSTRC=${HOME}/.config/dunst/dunstrc
 REPO=./dunst
 
-all: $(shell find * -name Dockerfile -printf 'img-%h\n')
+all: $(shell find * -name Dockerfile -printf 'test-%h\n')
 
 devimg-%:
 	docker build \
