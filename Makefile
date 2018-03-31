@@ -17,7 +17,7 @@ test-%: devimg-%
 
 	docker run \
 		--rm \
-		-v "${REPO}:/dunstrepo" \
+		-v "$(shell readlink -f ${REPO}):/dunstrepo" \
 		dunst:${@:test-%=%-dev} \
 		"/dunstrepo" \
 		"/srv/dunstrepo-${RAND}" \
