@@ -1,12 +1,13 @@
 XSOCK?=/tmp/.X11-unix
 DUNSTRC=${HOME}/.config/dunst/dunstrc
+DOCKER_REPO?=bebehei/dunst
 REPO=./dunst
 
 all: $(shell find * -name Dockerfile -printf 'test-%h\n')
 
 devimg-%:
 	docker build \
-		-t dunst:${@:devimg-%=%-dev} \
+		-t "${DOCKER_REPO}:${@:devimg-%=%-dev}" \
 		-f ${@:devimg-%=%}/Dockerfile.dev \
 		.
 
@@ -19,14 +20,14 @@ test-%: devimg-%
 		--rm \
 		--hostname "${@:test-%=%}" \
 		-v "$(shell readlink -f ${REPO}):/dunstrepo" \
-		dunst:${@:test-%=%-dev} \
+		"${DOCKER_REPO}:${@:test-%=%-dev}" \
 		"/dunstrepo" \
 		"/srv/dunstrepo-${RAND}" \
 		"/srv/${RAND}-install"
 
 img-%:
 	docker build \
-		-t dunst:${@:img-%=%} \
+		-t "${DOCKER_REPO}:${@:img-%=%}" \
 		-f ${@:img-%=%}/Dockerfile \
 		.
 
@@ -57,6 +58,6 @@ run-%: img-%
 		--volume=${DUNSTRC}:/tmp/dunstrc:ro \
 		--volume=/usr/share/icons:/usr/share/icons:ro \
 		--volume=/usr/share/fonts:/usr/share/fonts:ro \
-		dunst:${@:run-%=%} ${DUNST_ARGS}
+		"${DOCKER_REPO}:${@:run-%=%}" ${DUNST_ARGS}
 
 	rm ${XAUTH}
