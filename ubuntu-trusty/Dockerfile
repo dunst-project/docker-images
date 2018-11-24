@@ -14,7 +14,6 @@ RUN export DEBIAN_FRONTEND=noninteractive \
         libxinerama-dev \
         libxrandr-dev \
         libxss-dev \
-        valgrind \
  && apt-get clean \
  && true
 
@@ -24,5 +23,5 @@ ARG REPO_BRANCH=master
 RUN true \
  && git clone "${REPO_URL}" /tmp/dunst \
  && git -C /tmp/dunst checkout "${REPO_BRANCH}" \
- && make -C /tmp/dunst -j $(nproc) all install test-valgrind \
+ && make -C /tmp/dunst -j $(nproc) all install test \
  && true
