@@ -1,17 +1,21 @@
 XSOCK?=/tmp/.X11-unix
 DUNSTRC=${HOME}/.config/dunst/dunstrc
 DOCKER_REPO?=bebehei/dunst
+DOCKER_TECHNIQUE?=build
 REPO=./dunst
 
 all: $(shell find * -name Dockerfile -printf 'test-%h\n')
 
-devimg-%:
+devimg-pull-%:
+	docker pull "${DOCKER_REPO}:${@:devimg-pull-%=%-dev}"
+
+devimg-build-%:
 	docker build \
-		-t "${DOCKER_REPO}:${@:devimg-%=%-dev}" \
-		-f ${@:devimg-%=%}/Dockerfile.dev \
+		-t "${DOCKER_REPO}:${@:devimg-build-%=%-dev}" \
+		-f ${@:devimg-build-%=%}/Dockerfile.dev \
 		.
 
-test-%: devimg-%
+test-%: devimg-${DOCKER_TECHNIQUE}-%
 	$(eval RAND := $(shell date +%s))
 
 	[ -e "${REPO}" ]
@@ -25,13 +29,16 @@ test-%: devimg-%
 		"/srv/dunstrepo-${RAND}" \
 		"/srv/${RAND}-install"
 
-img-%:
+img-pull-%:
+	docker pull "${DOCKER_REPO}:${@:img-pull-%=%-dev}"
+
+img-build-%:
 	docker build \
-		-t "${DOCKER_REPO}:${@:img-%=%}" \
-		-f ${@:img-%=%}/Dockerfile \
+		-t "${DOCKER_REPO}:${@:img-build-%=%}" \
+		-f ${@:img-build-%=%}/Dockerfile \
 		.
 
-run-%: img-%
+run-%: img-${DOCKER_TECHNIQUE}-%
 	@[ -n "${DBUS_SESSION_BUS_ADDRESS}" ] \
 		|| ( echo '$DBUS_SESSION_BUS_ADDRESS missing' && exit 1)
 	@[ -n "${DISPLAY}" ] \
