@@ -7,6 +7,7 @@ RUN true \
         glib2-devel \
         gtk3-devel \
         libnotify-devel \
+        librsvg2 \
         libX11-devel \
         libxdg-basedir-devel \
         libXrandr-devel \

@@ -10,6 +10,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
         libglib2.0-dev \
         libgtk-3-dev \
         libpango1.0-dev \
+        librsvg2-common \
         libx11-dev \
         libxdg-basedir-dev \
         libxinerama-dev \

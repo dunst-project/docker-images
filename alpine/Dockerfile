@@ -5,6 +5,7 @@ RUN apk add --no-cache \
         dbus \
         glib \
         gtk+3.0 \
+        librsvg \
         libxdg-basedir \
         libxft \
         libxinerama \
