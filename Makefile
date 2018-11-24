@@ -24,6 +24,8 @@ test-%: devimg-${DOCKER_TECHNIQUE}-%
 		--rm \
 		--hostname "${@:test-%=%}" \
 		-v "$(shell readlink -f ${REPO}):/dunstrepo" \
+		-e CC \
+		-e CFLAGS \
 		"${DOCKER_REPO}:${@:test-%=%-dev}" \
 		"/dunstrepo" \
 		"/srv/dunstrepo-${RAND}" \

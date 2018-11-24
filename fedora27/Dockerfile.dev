@@ -2,6 +2,7 @@ FROM fedora:27
 
 RUN true \
  && dnf install -y \
+        clang \
         dbus-devel \
         @development-tools \
         glib2-devel \
