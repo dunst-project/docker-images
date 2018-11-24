@@ -6,11 +6,9 @@ RUN true \
         dbus-devel \
         @development-tools \
         glib2-devel \
-        gtk3-devel \
         libnotify-devel \
         librsvg2 \
         libX11-devel \
-        libxdg-basedir-devel \
         libXrandr-devel \
         libXScrnSaver-devel \
         pango-devel \

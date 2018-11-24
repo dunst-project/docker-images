@@ -8,11 +8,9 @@ RUN export DEBIAN_FRONTEND=noninteractive \
         git \
         libdbus-1-dev \
         libglib2.0-dev \
-        libgtk-3-dev \
         libpango1.0-dev \
         librsvg2-common \
         libx11-dev \
-        libxdg-basedir-dev \
         libxinerama-dev \
         libxrandr-dev \
         libxss-dev \

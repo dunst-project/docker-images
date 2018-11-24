@@ -10,13 +10,9 @@ RUN apk add --no-cache \
         git \
         glib \
         glib-dev \
-        gtk+3.0 \
-        gtk+3.0-dev \
         libnotify \
         libnotify-dev \
         librsvg \
-        libxdg-basedir \
-        libxdg-basedir-dev \
         libxft \
         libxft-dev \
         libxinerama \

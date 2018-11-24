@@ -4,9 +4,7 @@ RUN apk add --no-cache \
         cairo \
         dbus \
         glib \
-        gtk+3.0 \
         librsvg \
-        libxdg-basedir \
         libxft \
         libxinerama \
         libxrandr \
@@ -24,8 +22,6 @@ RUN true \
         gcc \
         git \
         glib-dev \
-        gtk+3.0-dev \
-        libxdg-basedir-dev \
         libxft-dev \
         libxinerama-dev \
         libxrandr-dev \
