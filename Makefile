@@ -17,6 +17,7 @@ test-%: devimg-%
 
 	docker run \
 		--rm \
+		--hostname "${@:test-%=%}" \
 		-v "$(shell readlink -f ${REPO}):/dunstrepo" \
 		dunst:${@:test-%=%-dev} \
 		"/dunstrepo" \
