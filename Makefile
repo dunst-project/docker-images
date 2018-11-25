@@ -13,6 +13,7 @@ all: ${IMG_DEV:%=test-%}
 push: devimg-push img-push
 pull: devimg-pull img-pull
 build: devimg-build img-build
+clean: devimg-clean img-clean
 
 devimg-push-%: devimg-build-%
 	docker push "${DOCKER_REPO}:${@:devimg-push-%=%-dev}"
@@ -46,6 +47,10 @@ test-%: devimg-${DOCKER_TECHNIQUE}-%
 		"/dunstrepo" \
 		"/srv/dunstrepo-${RAND}" \
 		"/srv/${RAND}-install"
+
+devimg-clean: ${IMG_DEV:%=devimg-clean-%}
+devimg-clean-%:
+	-docker image rm "${DOCKER_REPO}:${@:devimg-clean-%=%-dev}"
 
 img-push: ${IMG_RUN:%=img-push-%}
 img-push-%: img-build-%
@@ -91,3 +96,7 @@ run-%: img-${DOCKER_TECHNIQUE}-%
 		"${DOCKER_REPO}:${@:run-%=%}" ${DUNST_ARGS}
 
 	rm ${XAUTH}
+
+img-clean: ${IMG_RUN:%=img-clean-%}
+img-clean-%:
+	-docker image rm "${DOCKER_REPO}:${@:img-clean-%=%}"
