@@ -16,6 +16,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
         libxinerama-dev \
         libxrandr-dev \
         libxss-dev \
+        shared-mime-info \
         valgrind \
  && apt-get clean \
  && true
