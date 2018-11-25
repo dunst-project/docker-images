@@ -4,11 +4,27 @@ DOCKER_REPO?=bebehei/dunst
 DOCKER_TECHNIQUE?=build
 REPO=./dunst
 
-all: $(shell find * -name Dockerfile -printf 'test-%h\n')
+IMG_RUN?=$(shell find * -name Dockerfile -printf '%h\n')
+IMG_RUN:=${IMG_RUN}
+IMG_DEV?=$(shell find * -name Dockerfile.dev -printf '%h\n')
+IMG_DEV:=${IMG_DEV}
+
+all: ${IMG_DEV:%=test-%}
+push: devimg-push img-push
+pull: devimg-pull img-pull
+build: devimg-build img-build
+
+devimg-push-%: devimg-build-%
+	docker push "${DOCKER_REPO}:${@:devimg-push-%=%-dev}"
+
+devimg-push: ${IMG_DEV:%=devimg-push-%}
+devimg-push-%: devimg-build-%
+	docker push "${DOCKER_REPO}:${@:devimg-push-%=%-dev}"
 
 devimg-pull-%:
 	docker pull "${DOCKER_REPO}:${@:devimg-pull-%=%-dev}"
 
+devimg-build: ${IMG_DEV:%=devimg-build-%}
 devimg-build-%:
 	docker build \
 		-t "${DOCKER_REPO}:${@:devimg-build-%=%-dev}" \
@@ -31,9 +47,14 @@ test-%: devimg-${DOCKER_TECHNIQUE}-%
 		"/srv/dunstrepo-${RAND}" \
 		"/srv/${RAND}-install"
 
+img-push: ${IMG_RUN:%=img-push-%}
+img-push-%: img-build-%
+	docker push "${DOCKER_REPO}:${@:img-push-%=%}"
+
 img-pull-%:
 	docker pull "${DOCKER_REPO}:${@:img-pull-%=%-dev}"
 
+img-build: ${IMG_RUN:%=img-build-%}
 img-build-%:
 	docker build \
 		-t "${DOCKER_REPO}:${@:img-build-%=%}" \
