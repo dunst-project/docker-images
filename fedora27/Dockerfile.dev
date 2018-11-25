@@ -9,6 +9,8 @@ RUN true \
         libnotify-devel \
         librsvg2 \
         libX11-devel \
+        libXinerama \
+        libXinerama-devel \
         libXrandr-devel \
         libXScrnSaver-devel \
         pango-devel \
