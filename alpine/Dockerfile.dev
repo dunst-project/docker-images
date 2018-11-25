@@ -23,6 +23,7 @@ RUN apk add --no-cache \
         libxscrnsaver-dev \
         make \
         musl-dev \
+        openssh-client \
         pango \
         pango-dev \
         valgrind \
