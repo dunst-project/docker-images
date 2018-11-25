@@ -1,0 +1,12 @@
+FROM alpine
+
+RUN apk add --no-cache \
+        doxygen \
+        git \
+        graphviz \
+        make \
+ && true
+
+# Ignore all inputs to test
+# This image is only for doxygen and CircleCI
+ENTRYPOINT ["true"]
