@@ -15,7 +15,7 @@ Example: `make REPO=../dunst.git test-alpine`
 # Images
 
 - Alpine Latest ([`alpine`](./alpine))
-- Fedora 27 ([`fedora27`](./fedora27))
+- Fedora 30 ([`fedora30`](./fedora30))
 - Ubuntu 14.04 ([`ubuntu-trusty`](./ubuntu-trusty))
 
 CentOS is not supported, as [basic libraries are missing on CentOS](https://unix.stackexchange.com/questions/115304/dunst-notifier-on-centos).
