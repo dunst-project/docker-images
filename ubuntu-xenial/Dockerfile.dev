@@ -6,6 +6,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
         build-essential \
         ca-certificates \
         clang \
+        dbus \
         git \
         libdbus-1-dev \
         libglib2.0-dev \
