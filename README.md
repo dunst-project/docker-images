@@ -12,16 +12,16 @@ Use `make` for this and point the `REPO` variable to your repository. So a `make
 
 If you do not want to build the images, but download the prebuilt ones from dockerhub, add the variable `DOCKER_TECHNIQUE=pull` to your make call.
 
-To test dunst in a specific image, use `make test-<image>`.
+To test dunst in a specific image, use `make ci-run-<image>`.
 
-Example: `make REPO=../dunst.git test-alpine`
+Example: `make REPO=../dunst.git ci-run-alpine`
 
 # Other make targets
 
-- `devimg-pull`: Download all images from Docker Hub
-- `devimg-push`: Push the local images to Docker Hub
-- `devimg-build`: Build all docker images locally
-- `devimg-clean`: Remove all local docker images
+- `ci-pull`: Download all images from Docker Hub
+- `ci-push`: Push the local images to Docker Hub
+- `ci-build`: Build all docker images locally
+- `ci-clean`: Remove all local docker images
 
 # Images
 

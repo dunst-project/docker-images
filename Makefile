@@ -7,51 +7,53 @@ REPO=./dunst
 
 IMG_RUN?=$(shell find * -name Dockerfile -printf '%h\n')
 IMG_RUN:=${IMG_RUN}
-IMG_DEV?=$(shell find ci -name 'Dockerfile.*' | sed 's/ci\/Dockerfile\.\(.*\)/\1/')
-IMG_DEV:=${IMG_DEV}
+IMG_CI?=$(shell find ci -name 'Dockerfile.*' | sed 's/ci\/Dockerfile\.\(.*\)/\1/')
+IMG_CI:=${IMG_CI}
 
-all: ${IMG_DEV:%=test-%}
-push: devimg-push img-push
-pull: devimg-pull img-pull
-build: devimg-build img-build
-clean: devimg-clean img-clean
+.PHONY: all ci push pull build clean
+all: ci
+ci: ${IMG_CI:%=ci-run-%}
+push: ci-push img-push
+pull: ci-pull img-pull
+build: ci-build img-build
+clean: ci-clean img-clean
 
-devimg-push-%: devimg-build-%
-	docker push "${DOCKER_REPO_CI}:${@:devimg-push-%=%}"
+ci-push-%: ci-build-%
+	docker push "${DOCKER_REPO_CI}:${@:ci-push-%=%}"
 
-devimg-push: ${IMG_DEV:%=devimg-push-%}
-devimg-push-%: devimg-build-%
-	docker push "${DOCKER_REPO_CI}:${@:devimg-push-%=%}"
+ci-push: ${IMG_CI:%=ci-push-%}
+ci-push-%: ci-build-%
+	docker push "${DOCKER_REPO_CI}:${@:ci-push-%=%}"
 
-devimg-pull-%:
-	docker pull "${DOCKER_REPO_CI}:${@:devimg-pull-%=%}"
+ci-pull-%:
+	docker pull "${DOCKER_REPO_CI}:${@:ci-pull-%=%}"
 
-devimg-build: ${IMG_DEV:%=devimg-build-%}
-devimg-build-%:
+ci-build: ${IMG_CI:%=ci-build-%}
+ci-build-%:
 	docker build \
-		-t "${DOCKER_REPO_CI}:${@:devimg-build-%=%}" \
-		-f ci/Dockerfile.${@:devimg-build-%=%} \
+		-t "${DOCKER_REPO_CI}:${@:ci-build-%=%}" \
+		-f ci/Dockerfile.${@:ci-build-%=%} \
 		ci
 
-test-%: devimg-${DOCKER_TECHNIQUE}-%
+ci-run-%: ci-${DOCKER_TECHNIQUE}-%
 	$(eval RAND := $(shell date +%s))
 
 	[ -e "${REPO}" ]
 
 	docker run \
 		--rm \
-		--hostname "${@:test-%=%}" \
+		--hostname "${@:ci-run-%=%}" \
 		-v "$(shell readlink -f ${REPO}):/dunstrepo" \
 		-e CC \
 		-e CFLAGS \
-		"${DOCKER_REPO_CI}:${@:test-%=%}" \
+		"${DOCKER_REPO_CI}:${@:ci-run-%=%}" \
 		"/dunstrepo" \
 		"/srv/dunstrepo-${RAND}" \
 		"/srv/${RAND}-install"
 
-devimg-clean: ${IMG_DEV:%=devimg-clean-%}
-devimg-clean-%:
-	-docker image rm "${DOCKER_REPO_CI}:${@:devimg-clean-%=%}"
+ci-clean: ${IMG_CI:%=ci-clean-%}
+ci-clean-%:
+	-docker image rm "${DOCKER_REPO_CI}:${@:ci-clean-%=%}"
 
 img-push: ${IMG_RUN:%=img-push-%}
 img-push-%: img-build-%
