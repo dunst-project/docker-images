@@ -6,7 +6,7 @@ REPO=./dunst
 
 IMG_RUN?=$(shell find * -name Dockerfile -printf '%h\n')
 IMG_RUN:=${IMG_RUN}
-IMG_DEV?=$(shell find * -name Dockerfile.dev -printf '%h\n')
+IMG_DEV?=$(shell find ci -name 'Dockerfile.*' | sed 's/ci\/Dockerfile\.\(.*\)/\1/')
 IMG_DEV:=${IMG_DEV}
 
 all: ${IMG_DEV:%=test-%}
@@ -29,7 +29,7 @@ devimg-build: ${IMG_DEV:%=devimg-build-%}
 devimg-build-%:
 	docker build \
 		-t "${DOCKER_REPO}:${@:devimg-build-%=%-dev}" \
-		-f ${@:devimg-build-%=%}/Dockerfile.dev \
+		-f ci/Dockerfile.${@:devimg-build-%=%} \
 		.
 
 test-%: devimg-${DOCKER_TECHNIQUE}-%
