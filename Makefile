@@ -1,6 +1,7 @@
 XSOCK?=/tmp/.X11-unix
 DUNSTRC=${HOME}/.config/dunst/dunstrc
-DOCKER_REPO?=bebehei/dunst
+DOCKER_REPO?=dunst/dunst
+DOCKER_REPO_CI?=dunst/ci
 DOCKER_TECHNIQUE?=build
 REPO=./dunst
 
@@ -16,19 +17,19 @@ build: devimg-build img-build
 clean: devimg-clean img-clean
 
 devimg-push-%: devimg-build-%
-	docker push "${DOCKER_REPO}:${@:devimg-push-%=%-dev}"
+	docker push "${DOCKER_REPO_CI}:${@:devimg-push-%=%}"
 
 devimg-push: ${IMG_DEV:%=devimg-push-%}
 devimg-push-%: devimg-build-%
-	docker push "${DOCKER_REPO}:${@:devimg-push-%=%-dev}"
+	docker push "${DOCKER_REPO_CI}:${@:devimg-push-%=%}"
 
 devimg-pull-%:
-	docker pull "${DOCKER_REPO}:${@:devimg-pull-%=%-dev}"
+	docker pull "${DOCKER_REPO_CI}:${@:devimg-pull-%=%}"
 
 devimg-build: ${IMG_DEV:%=devimg-build-%}
 devimg-build-%:
 	docker build \
-		-t "${DOCKER_REPO}:${@:devimg-build-%=%-dev}" \
+		-t "${DOCKER_REPO_CI}:${@:devimg-build-%=%}" \
 		-f ci/Dockerfile.${@:devimg-build-%=%} \
 		ci
 
@@ -43,14 +44,14 @@ test-%: devimg-${DOCKER_TECHNIQUE}-%
 		-v "$(shell readlink -f ${REPO}):/dunstrepo" \
 		-e CC \
 		-e CFLAGS \
-		"${DOCKER_REPO}:${@:test-%=%-dev}" \
+		"${DOCKER_REPO_CI}:${@:test-%=%}" \
 		"/dunstrepo" \
 		"/srv/dunstrepo-${RAND}" \
 		"/srv/${RAND}-install"
 
 devimg-clean: ${IMG_DEV:%=devimg-clean-%}
 devimg-clean-%:
-	-docker image rm "${DOCKER_REPO}:${@:devimg-clean-%=%-dev}"
+	-docker image rm "${DOCKER_REPO_CI}:${@:devimg-clean-%=%}"
 
 img-push: ${IMG_RUN:%=img-push-%}
 img-push-%: img-build-%
