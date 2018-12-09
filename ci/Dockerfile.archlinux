@@ -17,6 +17,6 @@ RUN pacman -Syu --needed --noconfirm \
 
 RUN ln -sT /usr/bin/core_perl/pod2man /usr/bin/pod2man
 
-ADD entrypoint-dev.sh /srv/entrypoint
+ADD entrypoint.sh /srv/entrypoint
 
 ENTRYPOINT ["/srv/entrypoint"]

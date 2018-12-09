@@ -22,6 +22,6 @@ RUN export DEBIAN_FRONTEND=noninteractive \
  && apt-get clean \
  && true
 
-ADD entrypoint-dev.sh /srv/entrypoint
+ADD entrypoint.sh /srv/entrypoint
 
 ENTRYPOINT ["/srv/entrypoint"]

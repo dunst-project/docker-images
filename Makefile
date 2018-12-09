@@ -30,7 +30,7 @@ devimg-build-%:
 	docker build \
 		-t "${DOCKER_REPO}:${@:devimg-build-%=%-dev}" \
 		-f ci/Dockerfile.${@:devimg-build-%=%} \
-		.
+		ci
 
 test-%: devimg-${DOCKER_TECHNIQUE}-%
 	$(eval RAND := $(shell date +%s))

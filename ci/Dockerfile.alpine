@@ -29,6 +29,6 @@ RUN apk add --no-cache \
         valgrind \
  && true
 
-ADD entrypoint-dev.sh /srv/entrypoint
+ADD entrypoint.sh /srv/entrypoint
 
 ENTRYPOINT ["/srv/entrypoint"]
