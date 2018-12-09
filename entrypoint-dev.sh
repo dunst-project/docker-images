@@ -16,5 +16,5 @@ export PREFIX="${DIR_INST}"
 export CFLAGS='-Werror'
 
 make -C "${DIR_BUILD}" clean
-make -C "${DIR_BUILD}" all dunstify test-valgrind
-make -C "${DIR_BUILD}" install
+make -C "${DIR_BUILD}" -j all dunstify test-valgrind
+make -C "${DIR_BUILD}" -j install
