@@ -1,6 +1,18 @@
 # dunst-docker
 
-Dockerimages for dunst. Mainly used for testing.
+Dockerimages for dunst. Used for testing or running in a super small Alpine image.
+
+# Running
+
+Please clone the git repository and run make in there. Many flags have to get triggered to run dunst inside docker.
+
+```
+git clone https://github.com/dunst-project/docker-images dunst-docker
+cd dunst-docker
+make run
+```
+
+If you want to have a specific version, use `make run-<versiontag>` to run the specific version.
 
 # Usage
 
