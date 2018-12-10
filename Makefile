@@ -44,12 +44,12 @@ ci-run-%: ci-${DOCKER_TECHNIQUE}-%
 		--rm \
 		--hostname "${@:ci-run-%=%}" \
 		-v "$(shell readlink -f ${REPO}):/dunstrepo" \
+		-e DIR_REPO="/dunstrepo" \
+		-e DIR_BUILD="/srv/dunstrepo-${RAND}" \
+		-e PREFIX="/srv/${RAND}-install" \
 		-e CC \
 		-e CFLAGS \
-		"${DOCKER_REPO_CI}:${@:ci-run-%=%}" \
-		"/dunstrepo" \
-		"/srv/dunstrepo-${RAND}" \
-		"/srv/${RAND}-install"
+		"${DOCKER_REPO_CI}:${@:ci-run-%=%}"
 
 ci-clean: ${IMG_CI:%=ci-clean-%}
 ci-clean-%:
