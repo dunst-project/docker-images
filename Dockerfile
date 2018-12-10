@@ -3,6 +3,7 @@ FROM alpine
 RUN apk add --no-cache \
         cairo \
         dbus \
+        gdk-pixbuf \
         glib \
         librsvg \
         libxft \
@@ -20,6 +21,7 @@ RUN true \
         cairo-dev \
         dbus-dev \
         gcc \
+        gdk-pixbuf-dev \
         git \
         glib-dev \
         libxft-dev \
