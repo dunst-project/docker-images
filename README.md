@@ -25,12 +25,12 @@ Example: `make REPO=../dunst.git ci-run-alpine`
 
 # Images
 
-- ArchLinux Latest ([`archlinux`](./archlinux))
-- Alpine Latest ([`alpine`](./alpine))
-- Debian Stretch ([`debian-stretch`](./debian-stretch))
-- Fedora 30 ([`fedora30`](./fedora30))
-- Ubuntu 14.04 ([`ubuntu-trusty`](./ubuntu-trusty))
-- Ubuntu 16.04 ([`ubuntu-xenial`](./ubuntu-xenial))
-- Ubuntu 18.04 ([`ubuntu-bionic`](./ubuntu-bionic))
+- ArchLinux Latest (`archlinux`)
+- Alpine Latest (`alpine`)
+- Debian Stretch (`debian-stretch`)
+- Fedora 30 (`fedora30`)
+- Ubuntu 14.04 (`ubuntu-trusty`)
+- Ubuntu 16.04 (`ubuntu-xenial`)
+- Ubuntu 18.04 (`ubuntu-bionic`)
 
 CentOS is not supported, as [basic libraries are missing on CentOS](https://unix.stackexchange.com/questions/115304/dunst-notifier-on-centos).
