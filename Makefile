@@ -5,18 +5,17 @@ DOCKER_REPO_CI?=dunst/ci
 DOCKER_TECHNIQUE?=build
 REPO=./dunst
 
-IMG_RUN?=$(shell find * -name Dockerfile -printf '%h\n')
-IMG_RUN:=${IMG_RUN}
 IMG_CI?=$(shell find ci -name 'Dockerfile.*' | sed 's/ci\/Dockerfile\.\(.*\)/\1/')
 IMG_CI:=${IMG_CI}
 
 .PHONY: all ci push pull build clean
 all: ci
 ci: ${IMG_CI:%=ci-run-%}
-push: ci-push img-push
-pull: ci-pull img-pull
-build: ci-build img-build
-clean: ci-clean img-clean
+run: run-latest
+push: ci-push img-push-latest
+pull: ci-pull img-pull-latest
+build: ci-build img-build-latest
+clean: ci-clean img-clean-latest
 
 ci-push-%: ci-build-%
 	docker push "${DOCKER_REPO_CI}:${@:ci-push-%=%}"
@@ -55,20 +54,18 @@ ci-clean: ${IMG_CI:%=ci-clean-%}
 ci-clean-%:
 	-docker image rm "${DOCKER_REPO_CI}:${@:ci-clean-%=%}"
 
-img-push: ${IMG_RUN:%=img-push-%}
 img-push-%: img-build-%
 	docker push "${DOCKER_REPO}:${@:img-push-%=%}"
 
 img-pull-%:
-	docker pull "${DOCKER_REPO}:${@:img-pull-%=%-dev}"
+	docker pull "${DOCKER_REPO}:${@:img-pull-%=%}"
 
-img-build: ${IMG_RUN:%=img-build-%}
-img-build-%:
+img-build-latest:
 	docker build \
-		-t "${DOCKER_REPO}:${@:img-build-%=%}" \
-		-f ${@:img-build-%=%}/Dockerfile \
+		-t "${DOCKER_REPO}" \
 		.
 
+run: run-latest
 run-%: img-${DOCKER_TECHNIQUE}-%
 	@[ -n "${DBUS_SESSION_BUS_ADDRESS}" ] \
 		|| ( echo '$DBUS_SESSION_BUS_ADDRESS missing' && exit 1)
@@ -100,6 +97,5 @@ run-%: img-${DOCKER_TECHNIQUE}-%
 
 	rm ${XAUTH}
 
-img-clean: ${IMG_RUN:%=img-clean-%}
 img-clean-%:
 	-docker image rm "${DOCKER_REPO}:${@:img-clean-%=%}"
