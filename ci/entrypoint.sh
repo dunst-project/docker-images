@@ -13,7 +13,6 @@ DIR_INST="${3}"
 cp -r "${DIR_REPO}" "${DIR_BUILD}"
 
 export PREFIX="${DIR_INST}"
-export CFLAGS='-Werror'
 
 make -C "${DIR_BUILD}" clean
 make -C "${DIR_BUILD}" -j all dunstify test-valgrind

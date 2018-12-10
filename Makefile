@@ -4,6 +4,7 @@ DOCKER_REPO?=dunst/dunst
 DOCKER_REPO_CI?=dunst/ci
 DOCKER_TECHNIQUE?=build
 REPO=./dunst
+CFLAGS?=-Werror
 
 IMG_CI?=$(shell find ci -name 'Dockerfile.*' | sed 's/ci\/Dockerfile\.\(.*\)/\1/')
 IMG_CI:=${IMG_CI}
