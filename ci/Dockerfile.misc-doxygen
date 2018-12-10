@@ -1,5 +1,11 @@
 FROM alpine
 
+ENV TARGETS_OVERWRITE=doc-doxygen \
+    SYSTEMD=0 \
+    SERVICEDIR_DBUS=/tmp/none \
+    SERVICEDIR_SYSTEMD=/tmp/none \
+    PKG_CONFIG=echo
+
 RUN apk add --no-cache \
         doxygen \
         git \
@@ -7,6 +13,6 @@ RUN apk add --no-cache \
         make \
  && true
 
-# Ignore all inputs to test
-# This image is only for doxygen and CircleCI
-ENTRYPOINT ["true"]
+ADD entrypoint.sh /srv/entrypoint
+
+ENTRYPOINT ["/srv/entrypoint"]

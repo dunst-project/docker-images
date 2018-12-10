@@ -5,6 +5,7 @@ DOCKER_REPO_CI?=dunst/ci
 DOCKER_TECHNIQUE?=build
 REPO=./dunst
 CFLAGS?=-Werror
+DOCKER_TARGETS?=all dunstify test-valgrind install
 
 IMG_CI?=$(shell find ci -name 'Dockerfile.*' | sed 's/ci\/Dockerfile\.\(.*\)/\1/')
 IMG_CI:=${IMG_CI}
@@ -47,6 +48,7 @@ ci-run-%: ci-${DOCKER_TECHNIQUE}-%
 		-e DIR_REPO="/dunstrepo" \
 		-e DIR_BUILD="/srv/dunstrepo-${RAND}" \
 		-e PREFIX="/srv/${RAND}-install" \
+		-e TARGETS="${DOCKER_TARGETS}" \
 		-e CC \
 		-e CFLAGS \
 		"${DOCKER_REPO_CI}:${@:ci-run-%=%}"
