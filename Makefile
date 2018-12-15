@@ -49,8 +49,8 @@ ci-run-%: ci-${DOCKER_TECHNIQUE}-%
 		-e DIR_BUILD="/srv/dunstrepo-${RAND}" \
 		-e PREFIX="/srv/${RAND}-install" \
 		-e TARGETS="${DOCKER_TARGETS}" \
-		-e CC \
-		-e CFLAGS \
+		-e CC="${CC}" \
+		-e CFLAGS="${CFLAGS}" \
 		"${DOCKER_REPO_CI}:${@:ci-run-%=%}"
 
 ci-clean: ${IMG_CI:%=ci-clean-%}
