@@ -10,3 +10,7 @@ cp -r "${DIR_REPO}" "${DIR_BUILD}"
 
 make -C "${DIR_BUILD}" clean
 make -C "${DIR_BUILD}" -j ${TARGETS}
+
+if [ -e "${DIR_BUILD}/test/test-install.sh" ]; then
+	"${DIR_BUILD}/test/test-install.sh"
+fi
