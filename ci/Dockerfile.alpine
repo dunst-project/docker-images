@@ -31,6 +31,18 @@ RUN apk add --no-cache \
         valgrind \
  && true
 
+RUN set -ex; \
+    apk add --no-cache \
+        gcovr \
+        perl \
+        perl-io-gzip \
+        perl-json \
+        ; \
+    git clone https://github.com/linux-test-project/lcov.git; \
+    make -C lcov -j install; \
+    rm lcov -rf; \
+    :;
+
 ADD entrypoint.sh /srv/entrypoint
 
 ENTRYPOINT ["/srv/entrypoint"]
