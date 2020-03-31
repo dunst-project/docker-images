@@ -3,8 +3,11 @@ FROM fedora:31
 RUN true \
  && dnf install -y \
         clang \
+        dbus-daemon \
         dbus-devel \
         @development-tools \
+        diffutils \
+        findutils \
         glib2-devel \
         libnotify-devel \
         librsvg2 \
