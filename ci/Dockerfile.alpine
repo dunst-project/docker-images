@@ -5,6 +5,7 @@ RUN apk add --no-cache \
         cairo \
         cairo-dev \
         clang \
+        compiler-rt \
         dbus \
         dbus-dev \
         findutils \
