@@ -9,6 +9,7 @@ RUN true \
         diffutils \
         findutils \
         glib2-devel \
+        lcov \
         libnotify-devel \
         librsvg2 \
         libX11-devel \

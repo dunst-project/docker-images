@@ -3,6 +3,7 @@ FROM archlinux/base
 RUN pacman -Syu --needed --noconfirm \
       base-devel \
       clang \
+      gcovr \
       gdk-pixbuf2 \
       git \
       libnotify \
@@ -16,6 +17,12 @@ RUN pacman -Syu --needed --noconfirm \
  && true
 
 RUN ln -sT /usr/bin/core_perl/pod2man /usr/bin/pod2man
+
+RUN set -ex; \
+    git clone https://github.com/linux-test-project/lcov.git; \
+    make -C lcov -j install; \
+    rm lcov -rf; \
+    :;
 
 ADD entrypoint.sh /srv/entrypoint
 
