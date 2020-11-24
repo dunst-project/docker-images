@@ -41,7 +41,6 @@ Example: `make REPO=../dunst.git ci-run-alpine`
 - Alpine Latest (`alpine`)
 - Debian Stretch (`debian-stretch`)
 - Fedora 30 (`fedora30`)
-- Ubuntu 14.04 (`ubuntu-trusty`)
 - Ubuntu 16.04 (`ubuntu-xenial`)
 - Ubuntu 18.04 (`ubuntu-bionic`)
 
