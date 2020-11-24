@@ -20,6 +20,8 @@ RUN export DEBIAN_FRONTEND=noninteractive \
         libxrandr-dev \
         libxss-dev \
         valgrind \
+        libwayland-bin \
+        wayland-protocols \
  && apt-get clean \
  && true
 

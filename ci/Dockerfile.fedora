@@ -19,6 +19,8 @@ RUN true \
         libXScrnSaver-devel \
         pango-devel \
         valgrind \
+        wayland \
+        wayland-protocols \
  && true
 
 ADD entrypoint.sh /srv/entrypoint
