@@ -14,6 +14,8 @@ RUN pacman -Syu --needed --noconfirm \
       pango \
       perl \
       valgrind \
+      wayland \
+      wayland-protocols \
  && true
 
 RUN ln -sT /usr/bin/core_perl/pod2man /usr/bin/pod2man

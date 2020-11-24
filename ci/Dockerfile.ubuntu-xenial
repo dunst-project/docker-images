@@ -15,11 +15,13 @@ RUN export DEBIAN_FRONTEND=noninteractive \
         libnotify-dev \
         libpango1.0-dev \
         librsvg2-common \
+        libwayland-bin \
         libx11-dev \
         libxinerama-dev \
         libxrandr-dev \
         libxss-dev \
         valgrind \
+        wayland-protocols \
  && apt-get clean \
  && true
 

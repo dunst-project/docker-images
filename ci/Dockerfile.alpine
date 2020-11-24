@@ -32,6 +32,8 @@ RUN apk add --no-cache \
         pango \
         pango-dev \
         valgrind \
+        wayland \
+        wayland-protocols \
 # Link the compiler libs to the right directory, clang searches them in
 # /usr/lib/clang/9.0.0/lib/linux for some weird reason
  && mkdir /usr/lib/clang/9.0.0/lib/ \
