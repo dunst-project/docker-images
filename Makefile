@@ -19,9 +19,6 @@ pull: ci-pull img-pull-latest
 build: ci-build img-build-latest
 clean: ci-clean img-clean-latest
 
-ci-push-%: ci-build-%
-	docker push "${DOCKER_REPO_CI}:${@:ci-push-%=%}"
-
 ci-push: ${IMG_CI:%=ci-push-%}
 ci-push-%: ci-build-%
 	docker push "${DOCKER_REPO_CI}:${@:ci-push-%=%}"
