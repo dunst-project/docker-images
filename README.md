@@ -45,3 +45,9 @@ Example: `make REPO=../dunst.git ci-run-alpine`
 - Ubuntu 18.04 (`ubuntu-bionic`)
 
 CentOS is not supported, as [basic libraries are missing on CentOS](https://unix.stackexchange.com/questions/115304/dunst-notifier-on-centos).
+
+# Adding new images
+
+- Add your new `Dockerfile.<name>` in [`./ci/`](./ci) folder.
+- Edit the [build settings of the project](https://hub.docker.com/repository/docker/dunst/ci/builds/edit) to have a mapping from `Dockerfile.<name>` to `dunst-project/ci:<name>`.
+- In the [GitHub Action workflow](https://github.com/dunst-project/dunst/blob/master/.github/workflows/main.yml) of the main dunst project, add the new tag names in the matrix.
