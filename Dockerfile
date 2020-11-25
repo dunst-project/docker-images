@@ -1,5 +1,6 @@
 FROM alpine
 
+# Add general dependencies
 RUN apk add --no-cache \
         cairo \
         dbus \
@@ -10,14 +11,17 @@ RUN apk add --no-cache \
         libxinerama \
         libxrandr \
         libxscrnsaver \
-        pango \
- && apk add --no-cache --virtual dunstbuild \
+        pango
+
+# Build and install dunst
+RUN apk add --no-cache --virtual dunstbuild \
         cairo-dev \
         dbus-dev \
         gcc \
         gdk-pixbuf-dev \
         git \
         glib-dev \
+        libnotify-dev \
         libxft-dev \
         libxinerama-dev \
         libxrandr-dev \
@@ -25,6 +29,7 @@ RUN apk add --no-cache \
         make \
         musl-dev \
         pango-dev \
+        perl \
  && git clone https://github.com/dunst-project/dunst /tmp/dunst \
  && sed -i 's/-g//g' /tmp/dunst/config.mk \
  && make -C /tmp/dunst -j all install test \
