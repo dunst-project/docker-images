@@ -2,15 +2,17 @@
 
 set -eu
 
-[ -z "${TARGETS_OVERWRITE:-}" ] || TARGETS="${TARGETS_OVERWRITE}"
-
 # We want to build the code independent of our given source
 # as other simultaneously running build containers could compete
 cp -r "${DIR_REPO}" "${DIR_BUILD}"
-
 make -C "${DIR_BUILD}" clean
-make -C "${DIR_BUILD}" -j ${TARGETS}
 
-if [ -e "${DIR_BUILD}/test/test-install.sh" ]; then
-	"${DIR_BUILD}/test/test-install.sh"
+if [ "${DUNST_DOCS_ONLY:-}" = "true" ]; then
+	make -C "${DIR_BUILD}" -j doc-doxygen
+else
+	make -C "${DIR_BUILD}" -j ${TARGETS}
+
+	if [ -x "${DIR_BUILD}/test/test-install.sh" ]; then
+		"${DIR_BUILD}/test/test-install.sh"
+	fi
 fi

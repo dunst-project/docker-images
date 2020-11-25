@@ -1,6 +1,6 @@
 FROM alpine
 
-ENV TARGETS_OVERWRITE=doc-doxygen \
+ENV DUNST_DOCS_ONLY=true \
     SYSTEMD=0 \
     SERVICEDIR_DBUS=/tmp/none \
     SERVICEDIR_SYSTEMD=/tmp/none \
