@@ -19,7 +19,7 @@ RUN pacman -Syu --needed --noconfirm \
 RUN ln -sT /usr/bin/core_perl/pod2man /usr/bin/pod2man
 
 RUN set -ex; \
-    . /etc/profile.d/perlbin.sh; \
+    . /etc/profile; \
     cpan -i PerlIO::gzip JSON; \
     git clone https://github.com/linux-test-project/lcov.git; \
     make -C lcov -j install; \
