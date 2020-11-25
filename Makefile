@@ -12,7 +12,7 @@ IMG_CI:=${IMG_CI}
 
 .PHONY: all ci push pull build clean
 all: ci
-ci: ${IMG_CI:%=ci-run-%}
+ci: ci-run
 run: run-latest
 push: ci-push img-push-latest
 pull: ci-pull img-pull-latest
@@ -23,6 +23,7 @@ ci-push: ${IMG_CI:%=ci-push-%}
 ci-push-%: ci-build-%
 	docker push "${DOCKER_REPO_CI}:${@:ci-push-%=%}"
 
+ci-pull: ${IMG_CI:%=ci-pull-%}
 ci-pull-%:
 	docker pull "${DOCKER_REPO_CI}:${@:ci-pull-%=%}"
 
@@ -33,6 +34,7 @@ ci-build-%:
 		-f ci/Dockerfile.${@:ci-build-%=%} \
 		ci
 
+ci-run: ${IMG_CI:%=ci-run-%}
 ci-run-%: ci-${DOCKER_TECHNIQUE}-%
 	$(eval RAND := $(shell date +%s))
 
