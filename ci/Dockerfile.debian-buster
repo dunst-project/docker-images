@@ -1,0 +1,28 @@
+FROM debian:buster
+
+RUN export DEBIAN_FRONTEND=noninteractive \
+ && apt-get update \
+ && apt-get install -y --no-install-recommends \
+        build-essential \
+        ca-certificates \
+        clang \
+        curl \
+        dbus \
+        git \
+        lcov \
+        libdbus-1-dev \
+        libglib2.0-dev \
+        libnotify-dev \
+        libpango1.0-dev \
+        librsvg2-common \
+        libx11-dev \
+        libxinerama-dev \
+        libxrandr-dev \
+        libxss-dev \
+        valgrind \
+ && apt-get clean \
+ && true
+
+ADD entrypoint.sh /srv/entrypoint
+
+ENTRYPOINT ["/srv/entrypoint"]
