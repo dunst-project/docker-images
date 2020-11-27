@@ -16,6 +16,10 @@ RUN export DEBIAN_FRONTEND=noninteractive \
         libpango1.0-dev \
         librsvg2-common \
         libwayland-bin \
+        libwayland-client0 \
+        libwayland-cursor0 \
+        libwayland-dev \
+        libwayland-server0 \
         libx11-dev \
         libxinerama-dev \
         libxrandr-dev \
