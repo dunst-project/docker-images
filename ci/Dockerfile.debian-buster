@@ -8,7 +8,9 @@ RUN export DEBIAN_FRONTEND=noninteractive \
         clang \
         curl \
         dbus \
+        doxygen \
         git \
+        graphviz \
         lcov \
         libdbus-1-dev \
         libglib2.0-dev \

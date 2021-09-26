@@ -10,11 +10,13 @@ RUN apk add --no-cache \
         curl \
         dbus \
         dbus-dev \
+        doxygen \
         findutils \
         gcc \
         git \
         glib \
         glib-dev \
+        graphviz \
         libnotify \
         libnotify-dev \
         librsvg \

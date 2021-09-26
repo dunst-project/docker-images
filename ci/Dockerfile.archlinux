@@ -3,9 +3,11 @@ FROM archlinux/base
 RUN pacman -Syu --needed --noconfirm \
       base-devel \
       clang \
+      doxygen \
       gcovr \
       gdk-pixbuf2 \
       git \
+      graphviz \
       libnotify \
       librsvg \
       libxinerama \

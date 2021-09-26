@@ -5,10 +5,12 @@ RUN true \
         clang \
         dbus-daemon \
         dbus-devel \
+        doxygen \
         @development-tools \
         diffutils \
         findutils \
         glib2-devel \
+        graphviz \
         lcov \
         libnotify-devel \
         librsvg2 \
