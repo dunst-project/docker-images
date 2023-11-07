@@ -24,6 +24,8 @@ Use `make` for this and point the `REPO` variable to your repository. So a `make
 
 If you do not want to build the images, but download the prebuilt ones from dockerhub, add the variable `DOCKER_TECHNIQUE=pull` to your make call.
 
+If you do not use docker but a replacement (with compatible CLI; e.g. [podman](https://github.com/containers/podman)), add the variable `DOCKER=podman` to your make call.
+
 To test dunst in a specific image, use `make ci-run-<image>`.
 
 Example: `make REPO=../dunst.git ci-run-alpine`
