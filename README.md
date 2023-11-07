@@ -41,7 +41,8 @@ Example: `make REPO=../dunst.git ci-run-alpine`
 
 - ArchLinux Latest (`archlinux`)
 - Alpine Latest (`alpine`)
-- Debian Stretch (`debian-stretch`)
+- Debian Bookworm (`debian-bookworm`)
+- Debian Bullseye (`debian-bullseye`)
 - Debian Buster (`debian-buster`)
 - Fedora 30 (`fedora30`)
 - Ubuntu 16.04 (`ubuntu-xenial`)
