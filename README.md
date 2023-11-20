@@ -43,7 +43,7 @@ Example: `make REPO=../dunst.git ci-run-alpine`
 - Alpine Latest (`alpine`)
 - Debian Stretch (`debian-stretch`)
 - Debian Buster (`debian-buster`)
-- Fedora 30 (`fedora30`)
+- Fedora 39 (`fedora39`)
 - Ubuntu 16.04 (`ubuntu-xenial`)
 - Ubuntu 18.04 (`ubuntu-bionic`)
 - Ubuntu 20.04 (`ubuntu-focal`)
