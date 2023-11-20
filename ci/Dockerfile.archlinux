@@ -1,7 +1,6 @@
-FROM archlinux/base
+FROM archlinux:base-devel
 
 RUN pacman -Syu --needed --noconfirm \
-      base-devel \
       clang \
       gcovr \
       gdk-pixbuf2 \
@@ -12,21 +11,21 @@ RUN pacman -Syu --needed --noconfirm \
       libxrandr \
       libxss \
       pango \
-      perl \
       valgrind \
       wayland \
       wayland-protocols \
+      lcov \
+      # it seems like some font needs to be available for pango to properly
+      # work - otherwise valgrind complains about jumps depending on
+      # uninitialized values
+      ttf-dejavu \
  && true
 
 RUN ln -sT /usr/bin/core_perl/pod2man /usr/bin/pod2man
 
-RUN set -ex; \
-    . /etc/profile; \
-    cpan -i PerlIO::gzip JSON; \
-    git clone https://github.com/linux-test-project/lcov.git; \
-    make -C lcov -j install; \
-    rm lcov -rf; \
-    :;
+# Normally, re-login would trigger a source of /etc/profile.d/debuginfod.sh.
+# This won't happen here so we just set it up manually.
+ENV DEBUGINFOD_URLS="https://debuginfod.archlinux.org"
 
 ADD entrypoint.sh /srv/entrypoint
 
