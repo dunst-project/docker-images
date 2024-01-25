@@ -6,6 +6,7 @@ DOCKER_REPO_CI?=dunst/ci
 DOCKER_TECHNIQUE?=build
 REPO=./dunst
 CFLAGS?=-Werror
+DOCKER?=docker
 DOCKER_TARGETS?=all dunstify test-valgrind install
 
 # Structure of the makefile
@@ -40,17 +41,17 @@ clean: ci-clean
 # Push all images to docker hub
 ci-push: ${IMG_CI:%=ci-push-%}
 ci-push-%: ci-build-%
-	docker push "${DOCKER_REPO_CI}:${@:ci-push-%=%}"
+	$(DOCKER) push "${DOCKER_REPO_CI}:${@:ci-push-%=%}"
 
 # Pull all images from docker hub
 ci-pull: ${IMG_CI:%=ci-pull-%}
 ci-pull-%:
-	docker pull "${DOCKER_REPO_CI}:${@:ci-pull-%=%}"
+	$(DOCKER) pull "${DOCKER_REPO_CI}:${@:ci-pull-%=%}"
 
 # Build all images locally from the git repository
 ci-build: ${IMG_CI:%=ci-build-%}
 ci-build-%:
-	docker build \
+	$(DOCKER) build \
 		-t "${DOCKER_REPO_CI}:${@:ci-build-%=%}" \
 		-f ci/Dockerfile.${@:ci-build-%=%} \
 		ci
@@ -65,7 +66,7 @@ ci-run-%: ci-${DOCKER_TECHNIQUE}-%
 
 	[ -e "${REPO}" ]
 
-	docker run \
+	$(DOCKER) run \
 		--rm \
 		--hostname "${@:ci-run-%=%}" \
 		-v "$(shell readlink -f ${REPO}):/dunstrepo" \
@@ -80,4 +81,4 @@ ci-run-%: ci-${DOCKER_TECHNIQUE}-%
 # Remove the images from your local docker machine
 ci-clean: ${IMG_CI:%=ci-clean-%}
 ci-clean-%:
-	-docker image rm "${DOCKER_REPO_CI}:${@:ci-clean-%=%}"
+	-$(DOCKER) image rm "${DOCKER_REPO_CI}:${@:ci-clean-%=%}"
