@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM ubuntu:jammy
 
 RUN export DEBIAN_FRONTEND=noninteractive \
  && apt-get update \

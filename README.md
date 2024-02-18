@@ -41,12 +41,12 @@ Example: `make REPO=../dunst.git ci-run-alpine`
 
 - ArchLinux Latest (`archlinux`)
 - Alpine Latest (`alpine`)
-- Debian Stretch (`debian-stretch`)
+- Debian Bookworm (`debian-bookworm`)
+- Debian Bullseye (`debian-bullseye`)
 - Debian Buster (`debian-buster`)
 - Fedora 30 (`fedora30`)
-- Ubuntu 16.04 (`ubuntu-xenial`)
-- Ubuntu 18.04 (`ubuntu-bionic`)
 - Ubuntu 20.04 (`ubuntu-focal`)
+- Ubuntu 22.04 (`ubuntu-jammy`)
 
 CentOS is not supported, as [basic libraries are missing on CentOS](https://unix.stackexchange.com/questions/115304/dunst-notifier-on-centos).
 

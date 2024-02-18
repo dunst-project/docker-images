@@ -9,6 +9,14 @@ CFLAGS?=-Werror
 DOCKER?=docker
 DOCKER_TARGETS?=all dunstify test-valgrind install
 
+# Temporary workaround to fix an incompatibility of clang 14 with valgrind 3.19.
+# clang 14 uses dwarf v5 by default which valgrind just supports 3.20 and newer.
+# This can be removed once debian-bookworm and ubuntu-jammy are retired or they
+# backported a newer version of valgrind.
+ifeq (clang, ${CC})
+CFLAGS+=-gdwarf-4
+endif
+
 # Structure of the makefile
 #
 # We have generic targets (run push pull build clean), wich
