@@ -1,16 +1,18 @@
-FROM alpine:3.11
+FROM alpine:3.18
 
 RUN apk add --no-cache \
         bash \
         cairo \
         cairo-dev \
         clang \
-        compiler-rt \
-        compiler-rt-static \
         curl \
         dbus \
         dbus-dev \
         findutils \
+        # it seems like some font needs to be available for pango to properly
+        # work - otherwise valgrind complains about jumps depending on
+        # uninitialized values
+        font-dejavu \
         gcc \
         git \
         glib \
@@ -28,7 +30,6 @@ RUN apk add --no-cache \
         libxscrnsaver-dev \
         make \
         musl-dev \
-        openssh-client \
         pango \
         pango-dev \
         valgrind \
@@ -38,10 +39,6 @@ RUN apk add --no-cache \
         wayland-libs-cursor \
         wayland-libs-server \
         wayland-protocols \
-# Link the compiler libs to the right directory, clang searches them in
-# /usr/lib/clang/9.0.0/lib/linux for some weird reason
- && mkdir /usr/lib/clang/9.0.0/lib/ \
- && ln -sT /usr/lib/clang/9.0.0/ /usr/lib/clang/9.0.0/lib/linux \
  && true
 
 RUN set -ex; \

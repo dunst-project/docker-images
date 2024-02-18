@@ -44,7 +44,7 @@ Example: `make REPO=../dunst.git ci-run-alpine`
 - Debian Bookworm (`debian-bookworm`)
 - Debian Bullseye (`debian-bullseye`)
 - Debian Buster (`debian-buster`)
-- Fedora 30 (`fedora30`)
+- Fedora 39 (`fedora39`)
 - Ubuntu 20.04 (`ubuntu-focal`)
 - Ubuntu 22.04 (`ubuntu-jammy`)
 
