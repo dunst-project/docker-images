@@ -22,7 +22,7 @@ Use `make` for this and point the `REPO` variable to your repository. So a `make
 - **copy** the repo into the container (you local repo stays untouched)
 - execute the tests in the docker image
 
-If you do not want to build the images, but download the prebuilt ones from dockerhub, add the variable `DOCKER_TECHNIQUE=pull` to your make call.
+If you do not want to build the images, but download the prebuilt ones from Github Container Registry (ghcr.io), add the variable `DOCKER_TECHNIQUE=pull` to your make call.
 
 If you do not use docker but a replacement (with compatible CLI; e.g. [podman](https://github.com/containers/podman)), add the variable `DOCKER=podman` to your make call.
 
@@ -32,8 +32,7 @@ Example: `make REPO=../dunst.git ci-run-alpine`
 
 # Other make targets
 
-- `ci-pull`: Download all images from Docker Hub
-- `ci-push`: Push the local images to Docker Hub
+- `ci-pull`: Download all images from GitHub Package Registry
 - `ci-build`: Build all docker images locally
 - `ci-clean`: Remove all local docker images
 
@@ -53,5 +52,6 @@ CentOS is not supported, as [basic libraries are missing on CentOS](https://unix
 # Adding new images
 
 - Add your new `Dockerfile.<name>` in [`./ci/`](./ci) folder.
-- Edit the [build settings of the project](https://hub.docker.com/repository/docker/dunst/ci/builds/edit) to have a mapping from `Dockerfile.<name>` to `dunst-project/ci:<name>`.
-- In the [GitHub Action workflow](https://github.com/dunst-project/dunst/blob/master/.github/workflows/main.yml) of the main dunst project, add the new tag names in the matrix.
+- Add the new `<name>` in the GitHub Actions matrix:
+  - In the [GitHub Action workflow](.github/workflows/main.yml) of this project.
+  - In the [GitHub Action workflow](https://github.com/dunst-project/dunst/blob/master/.github/workflows/main.yml) of the main dunst project

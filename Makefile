@@ -2,7 +2,7 @@
 XSOCK?=/tmp/.X11-unix
 DUNSTRC=${HOME}/.config/dunst/dunstrc
 DOCKER_REPO?=dunst/dunst
-DOCKER_REPO_CI?=dunst/ci
+DOCKER_REPO_CI?=ghcr.io/dunst-project/docker-images
 DOCKER_TECHNIQUE?=build
 REPO=./dunst
 CFLAGS?=-Werror
@@ -19,7 +19,7 @@ endif
 
 # Structure of the makefile
 #
-# We have generic targets (run push pull build clean), wich
+# We have generic targets (run pull build clean), wich
 # depend on the image's specific target
 #
 # Every docker image flavor has a unique name. It is used as
@@ -37,19 +37,13 @@ IMG_CI?=$(shell find ci -name 'Dockerfile.*' | sed 's/ci\/Dockerfile\.\(.*\)/\1/
 # force make to execute the find call only once
 IMG_CI:=${IMG_CI}
 
-.PHONY: all ci push pull build clean
+.PHONY: all ci pull build clean
 all: ci
 ci: ci-run
 run: ci-run
-push: ci-push
 pull: ci-pull
 build: ci-build
 clean: ci-clean
-
-# Push all images to docker hub
-ci-push: ${IMG_CI:%=ci-push-%}
-ci-push-%: ci-build-%
-	$(DOCKER) push "${DOCKER_REPO_CI}:${@:ci-push-%=%}"
 
 # Pull all images from docker hub
 ci-pull: ${IMG_CI:%=ci-pull-%}
