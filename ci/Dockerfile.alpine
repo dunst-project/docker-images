@@ -45,7 +45,10 @@ RUN apk add --no-cache \
 RUN set -ex; \
     apk add --no-cache \
         gcovr \
+        gzip \
         perl \
+        perl-capture-tiny \
+        perl-datetime \
         perl-io-gzip \
         perl-json \
         ; \
