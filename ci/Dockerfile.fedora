@@ -1,7 +1,6 @@
-FROM fedora:39
+FROM fedora:40
 
-RUN true \
- && dnf install -y \
+RUN dnf install -y \
         clang \
         dbus-daemon \
         dbus-devel \
@@ -20,8 +19,7 @@ RUN true \
         pango-devel \
         valgrind \
         wayland-devel \
-        wayland-protocols-devel \
- && true
+        wayland-protocols-devel
 
 ADD entrypoint.sh /srv/entrypoint
 
