@@ -26,6 +26,7 @@ jobs:
           - misc-doxygen
           - ubuntu-focal
           - ubuntu-jammy
+          - ubuntu-noble
 
     # We need to push to the registry
     permissions:
