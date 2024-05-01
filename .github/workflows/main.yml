@@ -1,7 +1,10 @@
 name: Build dunst CI images
 
-# Run only when merged onto master
+# Run only when merged onto master or once a month in order to get latest
+# packages for each distribution.
 on:
+  schedule:
+    - cron: "42 3 15 * *"
   push:
     branches: [ 'master' ]
   workflow_dispatch:
