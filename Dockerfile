@@ -11,7 +11,8 @@ RUN apk add --no-cache \
         libxinerama \
         libxrandr \
         libxscrnsaver \
-        pango
+        pango \
+        libxkbcommon
 
 # Build and install dunst
 RUN apk add --no-cache --virtual dunstbuild \
@@ -30,6 +31,7 @@ RUN apk add --no-cache --virtual dunstbuild \
         musl-dev \
         pango-dev \
         perl \
+        libxkbcommon-dev \
  && git clone https://github.com/dunst-project/dunst /tmp/dunst \
  && sed -i 's/-g//g' /tmp/dunst/config.mk \
  && make -C /tmp/dunst -j all install test \

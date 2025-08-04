@@ -26,6 +26,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
         libxss-dev \
         valgrind \
         wayland-protocols \
+        libxkbcommon-dev \
  && apt-get clean \
  && true
 

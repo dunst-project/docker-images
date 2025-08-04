@@ -19,7 +19,8 @@ RUN dnf install -y \
         pango-devel \
         valgrind \
         wayland-devel \
-        wayland-protocols-devel
+        wayland-protocols-devel \
+        libxkbcommon-devel \
 
 ADD entrypoint.sh /srv/entrypoint
 
