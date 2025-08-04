@@ -1,0 +1,62 @@
+FROM alpine:edge
+
+RUN apk add --no-cache \
+        bash \
+        cairo \
+        cairo-dev \
+        clang \
+        compiler-rt \
+        curl \
+        dbus \
+        dbus-dev \
+        findutils \
+        # it seems like some font needs to be available for pango to properly
+        # work - otherwise valgrind complains about jumps depending on
+        # uninitialized values
+        font-dejavu \
+        gcc \
+        git \
+        glib \
+        glib-dev \
+        libnotify \
+        libnotify-dev \
+        librsvg \
+        libxft \
+        libxft-dev \
+        libxinerama \
+        libxinerama-dev \
+        libxrandr \
+        libxrandr-dev \
+        libxscrnsaver \
+        libxscrnsaver-dev \
+        make \
+        musl-dev \
+        pango \
+        pango-dev \
+        valgrind \
+        wayland \
+        wayland-dev \
+        wayland-libs-client \
+        wayland-libs-cursor \
+        wayland-libs-server \
+        wayland-protocols \
+ && true
+
+RUN set -ex; \
+    apk add --no-cache \
+        gcovr \
+        gzip \
+        perl \
+        perl-capture-tiny \
+        perl-datetime \
+        perl-io-gzip \
+        perl-json \
+        ; \
+    git clone https://github.com/linux-test-project/lcov.git; \
+    make -C lcov -j install; \
+    rm lcov -rf; \
+    :;
+
+ADD entrypoint.sh /srv/entrypoint
+
+ENTRYPOINT ["/srv/entrypoint"]

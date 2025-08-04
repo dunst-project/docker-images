@@ -21,6 +21,7 @@ jobs:
       matrix:
         distro:
           - alpine
+          - alpine-edge
           - archlinux
           - debian-bookworm
           - debian-bullseye
