@@ -20,7 +20,7 @@ RUN dnf install -y \
         valgrind \
         wayland-devel \
         wayland-protocols-devel \
-        libxkbcommon-devel \
+        libxkbcommon-devel
 
 ADD entrypoint.sh /srv/entrypoint
 
