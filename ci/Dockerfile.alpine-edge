@@ -21,6 +21,7 @@ RUN apk add --no-cache \
         libnotify \
         libnotify-dev \
         librsvg \
+		librsvg-dev \
         libxft \
         libxft-dev \
         libxinerama \
@@ -29,6 +30,7 @@ RUN apk add --no-cache \
         libxrandr-dev \
         libxscrnsaver \
         libxscrnsaver-dev \
+        libxkbcommon-dev \
         make \
         musl-dev \
         pango \
@@ -40,7 +42,6 @@ RUN apk add --no-cache \
         wayland-libs-cursor \
         wayland-libs-server \
         wayland-protocols \
-        libxkbcommon-dev \
  && true
 
 RUN set -ex; \

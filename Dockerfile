@@ -23,15 +23,16 @@ RUN apk add --no-cache --virtual dunstbuild \
         git \
         glib-dev \
         libnotify-dev \
+		librsvg-dev \
         libxft-dev \
         libxinerama-dev \
         libxrandr-dev \
         libxscrnsaver-dev \
+        libxkbcommon-dev \
         make \
         musl-dev \
         pango-dev \
         perl \
-        libxkbcommon-dev \
  && git clone https://github.com/dunst-project/dunst /tmp/dunst \
  && sed -i 's/-g//g' /tmp/dunst/config.mk \
  && make -C /tmp/dunst -j all install test \

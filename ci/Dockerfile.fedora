@@ -11,16 +11,17 @@ RUN dnf install -y \
         lcov \
         libnotify-devel \
         librsvg2 \
+        librsvg2-devel \
         libX11-devel \
         libXinerama \
         libXinerama-devel \
         libXrandr-devel \
         libXScrnSaver-devel \
+        libxkbcommon-devel \
         pango-devel \
         valgrind \
         wayland-devel \
-        wayland-protocols-devel \
-        libxkbcommon-devel
+        wayland-protocols-devel
 
 ADD entrypoint.sh /srv/entrypoint
 

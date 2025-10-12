@@ -19,6 +19,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
         libnotify-dev \
         libpango1.0-dev \
         librsvg2-common \
+        librsvg2-dev \
         libwayland-bin \
         libwayland-client0 \
         libwayland-cursor0 \
@@ -28,9 +29,9 @@ RUN export DEBIAN_FRONTEND=noninteractive \
         libxinerama-dev \
         libxrandr-dev \
         libxss-dev \
+        libxkbcommon-dev \
         valgrind \
         wayland-protocols \
-        libxkbcommon-dev \
  && apt-get clean \
  && true
 
