@@ -44,20 +44,16 @@ RUN apk add --no-cache \
         wayland-protocols \
  && true
 
-RUN set -ex; \
-    apk add --no-cache \
+# lcov used to be built from a git checkout of its master branch here. That
+# broke: upstream lcov grew new build dependencies (g++ for the XS extension,
+# sphinx-build for the man pages), and an unpinned clone means the image build
+# keeps breaking whenever upstream changes. Alpine packages lcov in community,
+# so just use that, like every other image in this repository does.
+RUN apk add --no-cache \
         gcovr \
         gzip \
-        perl \
-        perl-capture-tiny \
-        perl-datetime \
-        perl-io-gzip \
-        perl-json \
-        ; \
-    git clone https://github.com/linux-test-project/lcov.git; \
-    make -C lcov -j install; \
-    rm lcov -rf; \
-    :;
+        lcov \
+ && true
 
 ADD entrypoint.sh /srv/entrypoint
 

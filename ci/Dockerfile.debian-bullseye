@@ -1,5 +1,16 @@
 FROM debian:bullseye
 
+# Bullseye is EOL. deb.debian.org still publishes the bullseye-security index
+# but no longer serves its pool, so every .deb from that suite 404s, and
+# archive.debian.org does not carry bullseye-security at all. The base image
+# ships matching snapshot.debian.org sources for exactly this case -- switch to
+# them so the suites stay consistent with the packages already installed.
+RUN sed -i -e 's|^# deb http://snapshot\.debian\.org|deb http://snapshot.debian.org|' \
+           -e '/deb\.debian\.org/d' /etc/apt/sources.list \
+ && grep -q '^deb http://snapshot\.debian\.org' /etc/apt/sources.list \
+ && echo 'Acquire::Check-Valid-Until "false";' > /etc/apt/apt.conf.d/99no-check-valid-until \
+ && echo 'Acquire::Retries "5";' > /etc/apt/apt.conf.d/99retries
+
 RUN export DEBIAN_FRONTEND=noninteractive \
  && apt-get update \
  && apt-get install -y --no-install-recommends \

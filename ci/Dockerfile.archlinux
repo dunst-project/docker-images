@@ -1,10 +1,22 @@
 FROM archlinux:base-devel
 
+# Arch ships a stripped ld.so, which valgrind refuses to run against: it cannot
+# set up its mandatory memcmp redirection without glibc's symbols. Relying on
+# debuginfod alone is not enough -- the server only keeps debug info for the
+# packages currently in the repos, so as soon as Arch bumps glibc this image
+# stops being able to fetch matching symbols and valgrind dies at startup.
+# Installing glibc-debug from [core-debug] pins the debug info to the very
+# glibc baked into the image, which keeps working offline and forever.
+# Not every mirror carries the debug repos, so point this one at the official
+# Arch mirror instead of reusing /etc/pacman.d/mirrorlist.
+RUN printf '\n[core-debug]\nServer = https://geo.mirror.pkgbuild.com/$repo/os/$arch\n' >> /etc/pacman.conf
+
 RUN pacman -Syu --needed --noconfirm \
       clang \
       gcovr \
       gdk-pixbuf2 \
       git \
+      glibc-debug \
       libnotify \
       librsvg \
       libxinerama \
@@ -25,7 +37,8 @@ RUN pacman -Syu --needed --noconfirm \
 RUN ln -sT /usr/bin/core_perl/pod2man /usr/bin/pod2man
 
 # Normally, re-login would trigger a source of /etc/profile.d/debuginfod.sh.
-# This won't happen here so we just set it up manually.
+# This won't happen here so we just set it up manually. Debug info for glibc
+# itself comes from the glibc-debug package installed above.
 ENV DEBUGINFOD_URLS="https://debuginfod.archlinux.org"
 
 ADD entrypoint.sh /srv/entrypoint
