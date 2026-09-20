@@ -18,6 +18,10 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
+      # One distribution going bad must not stop the others from being
+      # refreshed: without this, a single failing image cancels the whole
+      # matrix and every image silently goes stale.
+      fail-fast: false
       matrix:
         distro:
           - alpine
