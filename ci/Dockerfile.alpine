@@ -44,20 +44,11 @@ RUN apk add --no-cache \
         wayland-protocols \
  && true
 
-RUN set -ex; \
-    apk add --no-cache \
+RUN apk add --no-cache \
         gcovr \
         gzip \
-        perl \
-        perl-capture-tiny \
-        perl-datetime \
-        perl-io-gzip \
-        perl-json \
-        ; \
-    git clone https://github.com/linux-test-project/lcov.git; \
-    make -C lcov -j install; \
-    rm lcov -rf; \
-    :;
+        lcov \
+ && true
 
 ADD entrypoint.sh /srv/entrypoint
 
