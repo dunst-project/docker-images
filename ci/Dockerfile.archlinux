@@ -1,10 +1,14 @@
 FROM archlinux:base-devel
 
+# valgrind needs glibc symbols, debuginfod drops them after a glibc update
+RUN printf '\n[core-debug]\nServer = https://geo.mirror.pkgbuild.com/$repo/os/$arch\n' >> /etc/pacman.conf
+
 RUN pacman -Syu --needed --noconfirm \
       clang \
       gcovr \
       gdk-pixbuf2 \
       git \
+      glibc-debug \
       libnotify \
       librsvg \
       libxinerama \

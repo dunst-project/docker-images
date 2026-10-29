@@ -1,5 +1,12 @@
 FROM debian:bullseye
 
+# bullseye is EOL and its security pool is gone, use the snapshot sources
+RUN sed -i -e 's|^# deb http://snapshot\.debian\.org|deb http://snapshot.debian.org|' \
+           -e '/deb\.debian\.org/d' /etc/apt/sources.list \
+ && grep -q '^deb http://snapshot\.debian\.org' /etc/apt/sources.list \
+ && echo 'Acquire::Check-Valid-Until "false";' > /etc/apt/apt.conf.d/99no-check-valid-until \
+ && echo 'Acquire::Retries "5";' > /etc/apt/apt.conf.d/99retries
+
 RUN export DEBIAN_FRONTEND=noninteractive \
  && apt-get update \
  && apt-get install -y --no-install-recommends \
